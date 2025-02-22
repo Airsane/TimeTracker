@@ -31,6 +31,7 @@ use MoonShine\UI\Components\{Breadcrumbs,
     Layout\Wrapper,
     When};
 use App\MoonShine\Resources\TaskResource;
+use App\MoonShine\Pages\Calendar;
 use MoonShine\MenuManager\MenuItem;
 
 final class MoonShineLayout extends AppLayout
@@ -47,6 +48,7 @@ final class MoonShineLayout extends AppLayout
         return [
             ...parent::menu(),
             MenuItem::make('Tasks', TaskResource::class),
+            MenuItem::make('Calendar', Calendar::class),
         ];
     }
 

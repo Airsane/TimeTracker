@@ -12,6 +12,11 @@ use MoonShine\Laravel\DependencyInjection\MoonShineConfigurator;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\TaskResource;
+use App\MoonShine\Pages\Calendar;
+use MoonShine\AssetManager\AssetManager;
+use MoonShine\AssetManager\Css;
+use MoonShine\AssetManager\Js;
+use Vite;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -24,6 +29,8 @@ class MoonShineServiceProvider extends ServiceProvider
     {
         // $config->authEnable();
 
+        Css::make(Vite::asset('resources/css/app.css'));
+        Js::make(Vite::asset('resources/js/app.js'));
         $core
             ->resources([
                 MoonShineUserResource::class,
@@ -32,6 +39,7 @@ class MoonShineServiceProvider extends ServiceProvider
             ])
             ->pages([
                 ...$config->getPages(),
+                Calendar::class,
             ])
         ;
     }

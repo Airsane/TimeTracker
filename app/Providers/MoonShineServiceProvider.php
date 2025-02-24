@@ -9,15 +9,9 @@ use MoonShine\Contracts\Core\DependencyInjection\ConfiguratorContract;
 use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
 use MoonShine\Laravel\DependencyInjection\MoonShine;
 use MoonShine\Laravel\DependencyInjection\MoonShineConfigurator;
-use App\MoonShine\Resources\MoonShineUserResource;
-use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\TaskResource;
 use App\MoonShine\Pages\Calendar;
-use MoonShine\AssetManager\AssetManager;
-use MoonShine\AssetManager\Css;
-use MoonShine\AssetManager\Js;
-use Vite;
-
+use App\MoonShine\Pages\ExportImportPage;
 class MoonShineServiceProvider extends ServiceProvider
 {
     /**
@@ -30,13 +24,12 @@ class MoonShineServiceProvider extends ServiceProvider
         // $config->authEnable();
         $core
             ->resources([
-                MoonShineUserResource::class,
-                MoonShineUserRoleResource::class,
                 TaskResource::class,
             ])
             ->pages([
                 ...$config->getPages(),
                 Calendar::class,
+                ExportImportPage::class,
             ])
         ;
     }

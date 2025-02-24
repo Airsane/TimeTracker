@@ -37,6 +37,7 @@ use MoonShine\MenuManager\MenuItem;
 use MoonShine\AssetManager\Css;
 use MoonShine\AssetManager\Js;
 use Vite;
+use App\MoonShine\Pages\ExportImportPage;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -54,6 +55,7 @@ final class MoonShineLayout extends AppLayout
         return [
             MenuItem::make('Tasks', TaskResource::class),
             MenuItem::make('Calendar', Calendar::class),
+            MenuItem::make('Export/Import', ExportImportPage::class),
         ];
     }
 

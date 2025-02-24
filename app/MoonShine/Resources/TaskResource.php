@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Task;
 
 use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\Contracts\UI\FieldContract;
@@ -15,7 +15,6 @@ use MoonShine\Contracts\UI\ComponentContract;
 
 use MoonShine\UI\Fields\Text;
 use MoonShine\UI\Fields\Date;
-use MoonShine\UI\Fields\Number;
 use App\MoonShine\Fields\Time;
 use MoonShine\UI\Components\Metrics\Wrapped\ValueMetric;
 
@@ -72,6 +71,7 @@ class TaskResource extends ModelResource
         ];
     }
 
+
     /**
      * @param Task $item
      *
@@ -87,7 +87,15 @@ class TaskResource extends ModelResource
         ];
     }
 
-    protected function metrics(): array{
+
+	public function pageComponents(): array
+	{
+        return [
+            ActionButton::make("Export tasks", "/admin/export-tasks")
+        ];
+	}
+
+	protected function metrics(): array{
         return [
             ValueMetric::make('Total Time Worked This Month')->value(Task::totalTimeWorkedThisMonth()),
         ];

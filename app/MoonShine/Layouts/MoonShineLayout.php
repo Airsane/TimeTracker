@@ -34,19 +34,24 @@ use App\MoonShine\Resources\TaskResource;
 use App\MoonShine\Pages\Calendar;
 use MoonShine\MenuManager\MenuItem;
 
+use MoonShine\AssetManager\Css;
+use MoonShine\AssetManager\Js;
+use Vite;
+
 final class MoonShineLayout extends AppLayout
 {
     protected function assets(): array
     {
         return [
             ...parent::assets(),
+            Css::make(Vite::asset('resources/css/app.css')),
+            Js::make(Vite::asset('resources/js/app.js')),
         ];
     }
 
     protected function menu(): array
     {
         return [
-            ...parent::menu(),
             MenuItem::make('Tasks', TaskResource::class),
             MenuItem::make('Calendar', Calendar::class),
         ];

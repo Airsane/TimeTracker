@@ -28,9 +28,6 @@ class MoonShineServiceProvider extends ServiceProvider
     public function boot(CoreContract $core, ConfiguratorContract $config): void
     {
         // $config->authEnable();
-
-        Css::make(Vite::asset('resources/css/app.css'));
-        Js::make(Vite::asset('resources/js/app.js'));
         $core
             ->resources([
                 MoonShineUserResource::class,

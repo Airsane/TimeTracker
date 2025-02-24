@@ -30,7 +30,7 @@ class TaskResource extends ModelResource
 
     protected string $description = 'Manage your tasks';
 
-    protected bool $createInModal = false;
+    protected bool $createInModal = true;
 
     protected bool $editInModal = true;
 
@@ -43,7 +43,7 @@ class TaskResource extends ModelResource
             ID::make()->sortable(),
             Text::make('Description'),
             Time::make('Time Taken'),
-            Date::make('Date')->format('d/m/Y')->format('d. m. Y'),
+            Date::make('Date')->format('d. m. Y')->default(now()->format('d. m. Y')),
         ];
     }
 
@@ -82,7 +82,7 @@ class TaskResource extends ModelResource
     {
         return [
             'description' => 'required',
-            'time_taken' => ['required', 'regex:/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/'],
+            'time_taken' => ['required', 'regex:/^([0-9]|[0-1][0-9]|2[0-3]):[0-5][0-9]$/'],
             'date' => 'required',
         ];
     }

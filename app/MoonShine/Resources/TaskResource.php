@@ -97,7 +97,8 @@ class TaskResource extends ModelResource
 
 	protected function metrics(): array{
         return [
-            ValueMetric::make('Total Time Worked This Month')->value(Task::totalTimeWorkedThisMonth()),
+            ValueMetric::make('Total Time Worked This Month')->value(Task::totalTimeWorkedMonth(now()->month, now()->year))->columnSpan(6),
+            ValueMetric::make('Needed Time In Month')->value(Task::neededTimeInMonth())->columnSpan(6),
         ];
     }
 

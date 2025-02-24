@@ -55,10 +55,10 @@ class Task extends Model
         );
     }
 
-    public static function totalTimeWorkedThisMonth(): string
+    public static function totalTimeWorkedMonth(int $month, int $year): string
     {
-        $tasks = self::whereMonth('date', now()->month)
-            ->whereYear('date', now()->year)
+        $tasks = self::whereMonth('date', $month)
+            ->whereYear('date', $year)
             ->get();
 
         $totalMinutes = 0;
@@ -75,5 +75,25 @@ class Task extends Model
         $hours = floor($totalMinutes / 60);
 
         return sprintf('%02d:%02d', $hours, $minutes);
+    }
+
+    public static function neededTimeInOneDay(): float
+    {
+        return Setting::getSetting('needed_time_in_one_day', 7.5);
+    }
+    public static function neededTimeInMonth(): string
+    {
+        $neededTimeInOneDay = self::neededTimeInOneDay();
+        $date = now();
+        $weekdaysInMonth = 0;
+
+        for ($day = 1; $day <= $date->daysInMonth; $day++) {
+            $currentDate = $date->copy()->setDay($day);
+            if ($currentDate->isWeekday()) {
+                $weekdaysInMonth++;
+            }
+        }
+
+        return sprintf('%02d:%02d', floor($neededTimeInOneDay * $weekdaysInMonth), ($neededTimeInOneDay * $weekdaysInMonth - floor($neededTimeInOneDay * $weekdaysInMonth)) * 60);
     }
 }

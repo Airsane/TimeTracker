@@ -34,6 +34,6 @@ final class Calendar extends MoonShineComponent
             $tasksByDate[$task->date->format('Y-m-d')][] = $task;
         }
 
-        return ["tasksByDate" => $tasksByDate];
+        return ["tasksByDate" => $tasksByDate, "neededTimeInMonth" => Task::neededTimeInMonth(), "neededTimeInOneDay" => Task::neededTimeInOneDay(), "totalTimeWorkedMonth" => Task::totalTimeWorkedMonth(now()->month, now()->year)];
     }
 }

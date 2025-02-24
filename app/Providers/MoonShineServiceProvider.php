@@ -12,6 +12,9 @@ use MoonShine\Laravel\DependencyInjection\MoonShineConfigurator;
 use App\MoonShine\Resources\TaskResource;
 use App\MoonShine\Pages\Calendar;
 use App\MoonShine\Pages\ExportImportPage;
+use App\MoonShine\Resources\SettingResource;
+use App\Models\Setting;
+
 class MoonShineServiceProvider extends ServiceProvider
 {
     /**
@@ -21,10 +24,12 @@ class MoonShineServiceProvider extends ServiceProvider
      */
     public function boot(CoreContract $core, ConfiguratorContract $config): void
     {
+        $this->generateDefaultSettings();
         // $config->authEnable();
         $core
             ->resources([
                 TaskResource::class,
+                SettingResource::class,
             ])
             ->pages([
                 ...$config->getPages(),
@@ -33,4 +38,11 @@ class MoonShineServiceProvider extends ServiceProvider
             ])
         ;
     }
+
+    private function generateDefaultSettings(){
+        if(Setting::count() === 0){
+            Setting::setSetting('needed_time_in_one_day', 7.5);
+        }
+    }
+
 }

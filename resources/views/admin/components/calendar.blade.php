@@ -10,31 +10,9 @@
     $lastDayOfPrevMonth = $date->copy()->subMonth()->endOfMonth()->day;
     $monthName = $date->format('F Y');
 
-    $neededTimeInOneDay = 7.5;
-
-    // Calculate weekdays in month for total needed hours
-    $weekdaysInMonth = 0;
-    $tempDate = $date->copy()->startOfMonth();
-    while ($tempDate->month === $date->month) {
-        if ($tempDate->isWeekday()) {
-            $weekdaysInMonth++;
-        }
-        $tempDate->addDay();
-    }
-    $totalNeededHours = $weekdaysInMonth * $neededTimeInOneDay;
-
     // Get prev/next month links
     $prevMonth = $date->copy()->subMonth();
     $nextMonth = $date->copy()->addMonth();
-    
-    $totalWorkedMinutes = 0;
-    foreach ($tasksByDate as $date => $tasks) {
-        foreach ($tasks as $task) {
-            list($hours, $minutes) = explode(':', $task['time_taken']);
-            $totalWorkedMinutes += ($hours * 60) + $minutes;
-        }
-    }
-    $totalWorkedHours = $totalWorkedMinutes / 60;
 @endphp
 
 <div class="bg-white rounded-lg shadow p-6">
@@ -42,7 +20,7 @@
         <div>
             <h2 class="text-2xl font-bold text-gray-800">{{ $monthName }}</h2>
             <div class="text-sm text-gray-600 mt-1">
-                Worked: {{ number_format($totalWorkedHours, 1) }}h / Needed: {{ number_format($totalNeededHours, 1) }}h
+                Worked: {{ $totalTimeWorkedMonth }} / Needed: {{ $neededTimeInMonth }}
             </div>
         </div>
         <div class="flex space-x-4">

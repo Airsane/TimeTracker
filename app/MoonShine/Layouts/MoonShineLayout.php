@@ -33,11 +33,11 @@ use MoonShine\UI\Components\{Breadcrumbs,
 use App\MoonShine\Resources\TaskResource;
 use App\MoonShine\Pages\Calendar;
 use MoonShine\MenuManager\MenuItem;
-
 use MoonShine\AssetManager\Css;
 use MoonShine\AssetManager\Js;
 use Vite;
 use App\MoonShine\Pages\ExportImportPage;
+use App\MoonShine\Resources\SettingResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -56,6 +56,7 @@ final class MoonShineLayout extends AppLayout
             MenuItem::make('Tasks', TaskResource::class),
             MenuItem::make('Calendar', Calendar::class),
             MenuItem::make('Export/Import', ExportImportPage::class),
+            MenuItem::make('Settings', SettingResource::class),
         ];
     }
 
